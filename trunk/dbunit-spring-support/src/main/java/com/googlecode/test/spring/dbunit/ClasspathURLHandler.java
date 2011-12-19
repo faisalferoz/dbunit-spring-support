@@ -10,33 +10,38 @@ import java.net.URLConnection;
 import java.net.URLStreamHandler;
 import java.net.URLStreamHandlerFactory;
 
-public class ClasspathURLHandler extends URLStreamHandler
+/**
+ * @author Faisal Feroz
+ */
+public class ClasspathURLHandler
+    extends URLStreamHandler
 {
-    private static final Logger log = LoggerFactory.getLogger(ClasspathURLHandler.class);
+    private static final Logger log = LoggerFactory.getLogger( ClasspathURLHandler.class );
 
     public static void register()
     {
         try
         {
-            URL.setURLStreamHandlerFactory(new URLStreamHandlerFactory()
+            URL.setURLStreamHandlerFactory( new URLStreamHandlerFactory()
             {
-                public URLStreamHandler createURLStreamHandler(String protocol)
+                public URLStreamHandler createURLStreamHandler( String protocol )
                 {
-                    return "classpath".equals(protocol) ? new ClasspathURLHandler() : null;
+                    return "classpath".equals( protocol ) ? new ClasspathURLHandler() : null;
                 }
-            });
+            } );
         }
-        catch (Exception e)
+        catch ( Exception e )
         {
-            log.error("Failed to set URL.URLStreamHandlerFactory.  Factory is probably already set.");
+            log.error( "Failed to set URL.URLStreamHandlerFactory.  Factory is probably already set." );
         }
     }
 
     @Override
-    protected URLConnection openConnection(URL u) throws IOException
+    protected URLConnection openConnection( URL u )
+        throws IOException
     {
         String path = u.getHost() + "/" + u.getPath();
-        ClassPathResource resource = new ClassPathResource(path);
+        ClassPathResource resource = new ClassPathResource( path );
         URL url = resource.getURL();
         return url == null ? null : url.openConnection();
     }

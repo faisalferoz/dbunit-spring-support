@@ -22,6 +22,14 @@
 		<maven>2.0.6</maven>
 	</prerequisites>
 
+	<developers>
+		<developer>
+			<id>fferoz</id>
+			<name>Faisal Feroz</name>
+			<email>faisalferoz@gmail.com</email>
+		</developer>
+	</developers>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 

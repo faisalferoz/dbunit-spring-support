@@ -15,14 +15,25 @@ import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * DBunit Utility Class that houses utility functions.
+ * 
+ * @author Faisal Feroz
+ */
 public class DBUnitUtils
 {
-    public static IDataTypeFactory determineDataTypeFactory(Connection connection)
+    /**
+     * Returns an appropriate {@link IDataTypeFactory} instance for the passed in connection.
+     * 
+     * @param connection The connection for which the factory is needed.
+     * @return an appropriate {@link IDataTypeFactory} instance for the passed in connection.
+     */
+    public static IDataTypeFactory determineDataTypeFactory( final Connection connection )
     {
         try
         {
-            DatabaseType databaseType = DatabaseUtils.databaseType(connection.getMetaData().getURL());
-            switch (databaseType)
+            final DatabaseType databaseType = DatabaseUtils.databaseType( connection.getMetaData().getURL() );
+            switch ( databaseType )
             {
                 case DB2:
                     return new Db2DataTypeFactory();
@@ -40,7 +51,7 @@ public class DBUnitUtils
                     return new MsSqlDataTypeFactory();
             }
         }
-        catch (SQLException ignored)
+        catch ( SQLException ignored )
         {
         }
         return new DefaultDataTypeFactory();

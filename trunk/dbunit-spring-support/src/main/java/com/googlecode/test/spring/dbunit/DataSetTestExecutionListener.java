@@ -44,6 +44,8 @@ import com.googlecode.test.dbunit.DBUnitUtils;
 /**
  * Spring test framework TestExecutionListener which looks for the DataSet annotation and if found, attempts to load a
  * data set (test fixture) before the test is run.
+ * 
+ * @author Faisal Feroz
  */
 public class DataSetTestExecutionListener
     extends AbstractTestExecutionListener
@@ -218,7 +220,9 @@ public class DataSetTestExecutionListener
 
         if ( dsNames.length > 1 && isBlank( datasourceName ) )
         {
-            final String s = "Specify the datasourceName in DatSet annotation.";
+            final String s =
+                "There are more than one datasources in the applicaiton context. "
+                    + "Please specify the datasourceName in DatSet annotation to specify which datasource to use.";
             log.error( s );
             throw new IllegalStateException( s );
         }
