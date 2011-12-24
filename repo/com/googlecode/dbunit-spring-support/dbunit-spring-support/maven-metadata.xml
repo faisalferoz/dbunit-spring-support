@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.googlecode.dbunit-spring-support</groupId>
+  <artifactId>dbunit-spring-support</artifactId>
+  <versioning>
+    <versions>
+      <version>1.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20111224160508</lastUpdated>
+  </versioning>
+</metadata>
