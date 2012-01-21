@@ -55,6 +55,13 @@ public class DataSetTestExecutionListenerIntegrationTest
     }
     
     @Test
+    @DataSet( "DataSetTestExecutionListenerIntegrationTest2.xls" )
+    public void dataShouldBeLoadedFromXLSfile()
+    {
+        assertThat( jdbcTemplate.queryForObject( "select name from data limit 1", String.class ), is( "3" ) );
+    }
+    
+    @Test
     @DataSet( {"DataSetTestExecutionListenerIntegrationTest.xml", "DataSetTestExecutionListenerIntegrationTest2.xml"} )
     public void dataShouldBeLoadedFromSpecifiedLocations()
     {

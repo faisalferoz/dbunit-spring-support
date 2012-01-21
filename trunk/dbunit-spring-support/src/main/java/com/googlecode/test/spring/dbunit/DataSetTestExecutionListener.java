@@ -28,6 +28,7 @@ import org.dbunit.dataset.CompositeDataSet;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ReplacementDataSet;
+import org.dbunit.dataset.excel.XlsDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.slf4j.Logger;
@@ -255,7 +256,25 @@ public class DataSetTestExecutionListener
         for ( final String location : configuration.getLocations() )
         {
             final InputStream is = new DefaultResourceLoader().getResource( location ).getInputStream();
-            final ReplacementDataSet dataSet = new ReplacementDataSet( new FlatXmlDataSetBuilder().build( is ) );
+            IDataSet ds = null;
+
+            // determine the dataset to load from location
+            if ( location.endsWith( "xml" ) )
+            {
+                ds = new FlatXmlDataSetBuilder().build( is );
+            }
+            else if ( location.endsWith( "xls" ) )
+            {
+                ds = new XlsDataSet( is );
+            }
+            else
+            {
+                final String s = "Only XLS and XML DataSet formats are supported";
+                log.error( s );
+                throw new IllegalStateException( s );
+            }
+
+            final ReplacementDataSet dataSet = new ReplacementDataSet( ds );
             dataSet.addReplacementObject( "[NULL]", null );
             configureReplacementDataSet( dataSet );
             dataSets.add( dataSet );
